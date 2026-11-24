@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Selamat Ulang Tahun 🎂</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Playfair+Display:wght@600;700&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#1b1035; --bg2:#4a1d6b; --bg3:#8a2f6f;
+  --pink:#ff7eb6; --gold:#ffd27d; --cream:#fff4ea;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Quicksand',system-ui,sans-serif;
+  color:var(--cream);
+  background:linear-gradient(160deg,var(--bg1),var(--bg2) 60%,var(--bg3));
+  background-attachment:fixed;
+  min-height:100dvh;
+  overflow-x:hidden;
+  line-height:1.6;
+}
+#fx{position:fixed;inset:0;pointer-events:none;z-index:60}
+#hearts{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.heart{position:absolute;bottom:-40px;opacity:0;animation:rise linear forwards}
+@keyframes rise{
+  0%{transform:translate(0,0) scale(.8);opacity:0}
+  10%{opacity:.75}
+  100%{transform:translate(var(--dx),-115vh) scale(1.2);opacity:0}
+}
+
+/* ---------- COVER ---------- */
+#cover{
+  position:fixed;inset:0;z-index:40;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+  text-align:center;padding:24px;
+  background:linear-gradient(160deg,var(--bg1),var(--bg2) 60%,var(--bg3));
+  transition:opacity .9s ease, transform .9s ease;
+}
+#cover.hide{opacity:0;transform:scale(1.1);pointer-events:none}
+.gift{font-size:96px;animation:bounce 1.6s ease-in-out infinite;filter:drop-shadow(0 10px 25px rgba(255,126,182,.5))}
+@keyframes bounce{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-18px) rotate(4deg)}}
+#cover h1{font-family:'Dancing Script',cursive;font-size:clamp(2rem,8vw,3.2rem);color:var(--gold)}
+#cover p{opacity:.85}
+.btn{
+  font-family:inherit;font-size:1.05rem;font-weight:600;
+  padding:14px 32px;border:none;border-radius:999px;cursor:pointer;
+  color:#3a1245;background:linear-gradient(135deg,var(--gold),var(--pink));
+  box-shadow:0 8px 28px rgba(255,126,182,.45);
+  transition:transform .2s, box-shadow .2s;
+}
+.btn:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 12px 34px rgba(255,126,182,.6)}
+.btn:active{transform:scale(.97)}
+.btn[disabled]{opacity:.5;cursor:default;transform:none}
+
+/* ---------- MAIN ---------- */
+main{position:relative;z-index:1;opacity:0;visibility:hidden;transition:opacity 1.2s ease}
+main.show{opacity:1;visibility:visible}
+section{max-width:760px;margin:0 auto;padding:90px 22px;text-align:center}
+.hero{min-height:100dvh;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:10px}
+.hero .small{letter-spacing:.35em;text-transform:uppercase;font-size:.8rem;color:var(--gold)}
+.hero h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,6vw,2.4rem);font-weight:600}
+.hero .name{
+  font-family:'Dancing Script',cursive;font-size:clamp(3.4rem,17vw,7rem);line-height:1.1;
+  background:linear-gradient(135deg,var(--gold),var(--pink),#b79cff);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 6px 18px rgba(255,126,182,.35));
+}
+.hero .sub{min-height:3.2em;max-width:30em;opacity:.9;font-size:1.1rem}
+.scroll{margin-top:28px;font-size:.9rem;opacity:.7;animation:nudge 1.8s infinite}
+@keyframes nudge{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+h3.title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,5vw,2.1rem);margin-bottom:10px}
+.lead{opacity:.8;margin-bottom:30px}
+
+.reveal{opacity:0;transform:translateY(30px);transition:opacity .9s ease, transform .9s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ---------- CAKE ---------- */
+#cake{width:min(300px,78vw);height:auto;display:block;margin:0 auto 18px;filter:drop-shadow(0 18px 24px rgba(0,0,0,.35))}
+.flame{transform-box:fill-box;transform-origin:50% 100%;animation:flick .5s ease-in-out infinite;transition:opacity .6s, transform .6s}
+.flame:nth-of-type(2){animation-delay:.15s}
+.flame:nth-of-type(3){animation-delay:.3s}
+@keyframes flick{0%,100%{transform:scale(1,1) rotate(-3deg)}50%{transform:scale(.88,1.14) rotate(3deg)}}
+#cake.out .flame{animation:none;opacity:0;transform:scale(.2)}
+.wish{min-height:5em;margin-top:22px;font-family:'Dancing Script',cursive;font-size:1.7rem;color:var(--gold);opacity:0;transition:opacity 1s}
+.wish.in{opacity:1}
+
+/* ---------- REASONS ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;text-align:left}
+.card{
+  position:relative;padding:26px 22px 22px;border-radius:20px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:transform .3s, background .3s;
+}
+.card:hover{transform:translateY(-6px);background:rgba(255,255,255,.13)}
+.card .no{
+  position:absolute;top:-14px;left:18px;width:30px;height:30px;border-radius:50%;
+  display:grid;place-items:center;font-weight:700;font-size:.9rem;color:#3a1245;
+  background:linear-gradient(135deg,var(--gold),var(--pink));
+}
+
+/* ---------- LETTER ---------- */
+.letter{
+  background:var(--cream);color:#4a2a3a;border-radius:10px;padding:38px 30px;text-align:left;
+  font-family:'Dancing Script',cursive;font-size:clamp(1.3rem,4.4vw,1.65rem);line-height:1.65;
+  box-shadow:0 22px 50px rgba(0,0,0,.4);transform:rotate(-1deg);
+}
+.letter p{margin-bottom:.9em}
+.letter .to{font-weight:700;font-size:1.25em}
+.letter .from{text-align:right;margin-top:1.2em;margin-bottom:0}
+
+/* ---------- GALLERY ---------- */
+.gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:22px}
+.polaroid{background:#fff;padding:12px 12px 16px;border-radius:6px;color:#4a2a3a;box-shadow:0 14px 30px rgba(0,0,0,.35);transition:transform .3s}
+.polaroid:nth-child(odd){transform:rotate(-2.5deg)}
+.polaroid:nth-child(even){transform:rotate(2.5deg)}
+.polaroid:hover{transform:rotate(0) scale(1.04)}
+.polaroid img{width:100%;aspect-ratio:1;object-fit:cover;display:block;border-radius:3px}
+.polaroid span{display:block;margin-top:10px;font-family:'Dancing Script',cursive;font-size:1.3rem}
+
+/* ---------- CLOSING ---------- */
+.closing .big{font-family:'Dancing Script',cursive;font-size:clamp(2.4rem,9vw,4rem);color:var(--gold);margin-bottom:14px}
+.closing .sign{margin:18px 0 28px;opacity:.9}
+footer{padding:30px 20px 60px;text-align:center;font-size:.85rem;opacity:.55}
+
+#music{
+  position:fixed;right:16px;bottom:16px;z-index:55;width:46px;height:46px;border-radius:50%;
+  border:1px solid rgba(255,255,255,.3);background:rgba(0,0,0,.35);color:#fff;font-size:1.2rem;cursor:pointer;display:none;
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+<body>
+
+<canvas id="fx"></canvas>
+<div id="hearts"></div>
+
+<!-- COVER -->
+<div id="cover">
+  <div class="gift">🎁</div>
+  <h1 id="coverTitle">Ada kado untukmu…</h1>
+  <p>Sentuh tombol di bawah untuk membukanya</p>
+  <button class="btn" id="openBtn">Buka Kado 💝</button>
+</div>
+
+<button id="music" aria-label="Musik">🎵</button>
+
+<main id="main">
+
+  <section class="hero">
+    <div class="small">Selamat Ulang Tahun</div>
+    <h2 id="heroLine">Untuk seseorang yang sangat spesial</h2>
+    <div class="name" id="heroName"></div>
+    <p class="sub" id="heroSub"></p>
+    <div class="scroll">Gulir ke bawah ↓</div>
+  </section>
+
+  <section>
+    <h3 class="title reveal">Make a wish ✨</h3>
+    <p class="lead reveal">Pejamkan mata, ucapkan harapanmu, lalu tiup lilinnya.</p>
+    <div class="reveal">
+      <svg id="cake" viewBox="0 0 240 230" xmlns="http://www.w3.org/2000/svg" aria-label="Kue ulang tahun">
+        <ellipse cx="120" cy="214" rx="108" ry="12" fill="rgba(0,0,0,.25)"/>
+        <ellipse cx="120" cy="206" rx="102" ry="12" fill="#f3e6ff"/>
+        <rect x="30" y="140" width="180" height="66" rx="12" fill="#ff9ec4"/>
+        <rect x="60" y="95" width="120" height="50" rx="12" fill="#ffc2dc"/>
+        <path d="M60 108 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 v-13 h-120z" fill="#fff"/>
+        <path d="M30 153 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 q10 16 20 0 v-13 h-180z" fill="#fff"/>
+        <circle cx="52" cy="185" r="3.5" fill="#ffd27d"/><circle cx="85" cy="192" r="3.5" fill="#8ae3ff"/>
+        <circle cx="120" cy="182" r="3.5" fill="#fff"/><circle cx="155" cy="193" r="3.5" fill="#b79cff"/>
+        <circle cx="188" cy="184" r="3.5" fill="#ffd27d"/>
+        <rect x="88" y="67" width="8" height="28" rx="2" fill="#ffd27d"/>
+        <rect x="118" y="67" width="8" height="28" rx="2" fill="#8ae3ff"/>
+        <rect x="148" y="67" width="8" height="28" rx="2" fill="#ffd27d"/>
+        <g class="flame"><ellipse cx="92" cy="57" rx="5" ry="9" fill="#ffb347"/><ellipse cx="92" cy="60" rx="2.5" ry="5" fill="#fff3b0"/></g>
+        <g class="flame"><ellipse cx="122" cy="57" rx="5" ry="9" fill="#ffb347"/><ellipse cx="122" cy="60" rx="2.5" ry="5" fill="#fff3b0"/></g>
+        <g class="flame"><ellipse cx="152" cy="57" rx="5" ry="9" fill="#ffb347"/><ellipse cx="152" cy="60" rx="2.5" ry="5" fill="#fff3b0"/></g>
+      </svg>
+      <button class="btn" id="blowBtn">Tiup Lilin 🕯️</button>
+      <p class="wish" id="wish"></p>
+    </div>
+  </section>
+
+  <section id="reasonsSec">
+    <h3 class="title reveal">Kenapa kamu begitu istimewa</h3>
+    <p class="lead reveal">Beberapa dari sekian banyak alasannya…</p>
+    <div class="grid" id="reasons"></div>
+  </section>
+
+  <section>
+    <div class="letter reveal" id="letter"></div>
+  </section>
+
+  <section id="gallerySec" style="display:none">
+    <h3 class="title reveal">Kenangan kita 📸</h3>
+    <p class="lead reveal">Momen-momen yang tak akan kulupakan.</p>
+    <div class="gallery" id="gallery"></div>
+  </section>
+
+  <section class="closing">
+    <div class="big reveal" id="closeBig"></div>
+    <p class="reveal" id="closeText"></p>
+    <p class="sign reveal" id="closeSign"></p>
+    <button class="btn reveal" id="againBtn">Rayakan lagi 🎉</button>
+  </section>
+
+  <footer>Dibuat dengan 💖 khusus untukmu</footer>
+</main>
+
+<script>
+/* =====================================================
+   ✏️  EDIT BAGIAN INI SAJA UNTUK MEMPERSONALISASI KADO
+   ===================================================== */
+const KADO = {
+  namaPenerima: "qisya almaira",            // nama / panggilan dia
+  namaPengirim: "putra",               // namamu
+  subjudul: "Hari ini dunia merayakan hadirnya seseorang yang membuat hari-hariku jauh lebih indah.",
+  harapan: "Semoga semua harapanmu terkabul, dan aku boleh jadi salah satu alasan kamu tersenyum setiap hari.",
+
+  // Alasan kenapa dia spesial (tambah / kurangi sesukamu)
+  alasan: [
+    "Senyummu bisa membuat hari buruk jadi baik-baik saja.",
+    "Kamu selalu ada, bahkan saat aku sendiri lupa caranya bersandar.",
+    "Caramu peduli pada hal-hal kecil itu luar biasa.",
+    "Tawamu adalah suara favoritku di dunia.",
+    "Bersamamu, hal sederhana terasa istimewa.",
+    "Kamu membuatku ingin jadi versi terbaik dari diriku."
+  ],
+
+  // Isi surat. Gunakan {nama} untuk menyebut nama penerima.
+  surat: [
+    "happy birthday, my favorit person!.",
+    "dihari spesialmu ini,aku cuma mau bilang terimakasih karna kamu sudah lahir ke dunia dan menjadi seseorang begitu berarti buataku.Terimakasih sudah hadir,membawa cerita,tawa,dan kebahagian kecil mungkin gak selalu kamu sadari .",
+    "aku enggak penah menyangka seseorang bisa punya arti sebesar ini hanya lewat hal hal sederhan,dari obrolan random,candaan enggak jelas,sampai momen kecil yang terlihat biasa,tapi selalu berhasil menjadi sesuatu yg aku ingat.",
+    "aku bersuykur bisa mengenalmu,di usia baru mu ini,aku berharap kamu selalu menemukan alasan untuk terus tersenyum,selalu punya semangat untuk mengejar hal hal yg kamu impikan,dan gak pernah lupa betapa berharganya diriimu,i'm really glad you were born,and even heppier that i got to know you."
+  ],
+
+  penutup: "Sekali lagi, selamat ulang tahun!",
+
+  // Foto (opsional). Taruh file foto di folder yang sama dengan file ini, contoh:
+  // foto: [{src:"foto1.jpg", caption:"Hari itu"}, {src:"foto2.jpg", caption:"Favoritku"}],
+  foto: [],
+
+  // Musik (opsional). Contoh: musik: "lagu.mp3"
+  musik: ""
+};
+/* ===================================================== */
+
+const $ = id => document.getElementById(id);
+const nama = KADO.namaPenerima;
+const fill = s => s.replaceAll("{nama}", nama);
+
+/* ---------- Isi konten ---------- */
+document.title = `Selamat Ulang Tahun, ${nama} 🎂`;
+$("coverTitle").textContent = `Ada kado untukmu, ${nama}…`;
+$("heroName").textContent = nama;
+$("closeBig").textContent = `Happy Birthday, ${nama}!`;
+$("closeText").textContent = KADO.penutup;
+$("closeSign").textContent = `Diterima yaaa, ${KADO.namaPengirim} 💌`;
+
+KADO.alasan.forEach((t,i)=>{
+  const d=document.createElement("div");d.className="card reveal";
+  const n=document.createElement("div");n.className="no";n.textContent=i+1;
+  const p=document.createElement("p");p.textContent=t;
+  d.append(n,p);$("reasons").append(d);
+});
+
+(function(){
+  const L=$("letter");
+  KADO.surat.forEach((t,i)=>{
+    const p=document.createElement("p");p.textContent=fill(t);
+    if(i===0)p.className="to";L.append(p);
+  });
+  const f=document.createElement("p");f.className="from";f.textContent=`— ${KADO.namaPengirim}`;L.append(f);
+})();
+
+if(KADO.foto && KADO.foto.length){
+  $("gallerySec").style.display="";
+  KADO.foto.forEach(f=>{
+    const d=document.createElement("div");d.className="polaroid reveal";
+    const img=document.createElement("img");img.src=f.src;img.alt=f.caption||"Kenangan";img.loading="lazy";
+    const c=document.createElement("span");c.textContent=f.caption||"";
+    d.append(img,c);$("gallery").append(d);
+  });
+}
+
+/* ---------- Confetti ---------- */
+const fx=$("fx"),ctx=fx.getContext("2d");
+let W,H,parts=[],running=false;
+function resize(){W=fx.width=innerWidth;H=fx.height=innerHeight}
+resize();addEventListener("resize",resize);
+const colors=["#ff7eb6","#ffd27d","#8ae3ff","#b79cff","#ffffff","#ff9a6b"];
+function burst(n=130,x=W/2,y=H*0.4){
+  for(let i=0;i<n;i++){
+    const a=Math.random()*Math.PI*2,s=4+Math.random()*9;
+    parts.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s-5,g:.18,
+      w:6+Math.random()*6,h:8+Math.random()*8,r:Math.random()*6,vr:(Math.random()-.5)*.4,
+      c:colors[i%colors.length],life:160+Math.random()*80});
+  }
+  if(!running){running=true;requestAnimationFrame(loop)}
+}
+function loop(){
+  ctx.clearRect(0,0,W,H);
+  parts=parts.filter(p=>p.life>0&&p.y<H+40);
+  for(const p of parts){
+    p.vy+=p.g;p.vx*=.99;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.life--;
+    ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);
+    ctx.globalAlpha=Math.min(1,p.life/40);ctx.fillStyle=p.c;
+    ctx.fillRect(-p.w/2,-p.h/2,p.w,p.h);ctx.restore();
+  }
+  if(parts.length)requestAnimationFrame(loop);
+  else{running=false;ctx.clearRect(0,0,W,H)}
+}
+
+/* ---------- Hati melayang ---------- */
+let heartTimer;
+function startHearts(){
+  const icons=["💖","💗","✨","🌸","💕"];
+  heartTimer=setInterval(()=>{
+    const h=document.createElement("span");h.className="heart";
+    h.textContent=icons[Math.floor(Math.random()*icons.length)];
+    h.style.left=Math.random()*100+"vw";
+    h.style.fontSize=(14+Math.random()*22)+"px";
+    h.style.setProperty("--dx",(Math.random()*120-60)+"px");
+    h.style.animationDuration=(8+Math.random()*7)+"s";
+    h.addEventListener("animationend",()=>h.remove());
+    $("hearts").append(h);
+  },650);
+}
+
+/* ---------- Efek mengetik ---------- */
+function typeText(el,text,speed=45){
+  const chars=Array.from(text);let i=0;el.textContent="";
+  (function t(){el.textContent=chars.slice(0,++i).join("");if(i<chars.length)setTimeout(t,speed)})();
+}
+
+/* ---------- Muncul saat di-scroll ---------- */
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}
+}),{threshold:.15});
+function observeAll(){
+  document.querySelectorAll(".reveal").forEach((el,i)=>{
+    el.style.transitionDelay=(el.classList.contains("card")||el.classList.contains("polaroid"))?((i%4)*0.12)+"s":"0s";
+    io.observe(el);
+  });
+}
+
+/* ---------- Musik ---------- */
+let audio=null;
+if(KADO.musik){
+  audio=new Audio(KADO.musik);audio.loop=true;audio.volume=.6;
+  const mb=$("music");mb.style.display="block";
+  mb.onclick=()=>{
+    if(audio.paused){audio.play().catch(()=>{});mb.textContent="🎵"}
+    else{audio.pause();mb.textContent="🔇"}
+  };
+}
+
+/* ---------- Interaksi ---------- */
+$("openBtn").onclick=()=>{
+  $("cover").classList.add("hide");
+  $("main").classList.add("show");
+  if(audio)audio.play().catch(()=>{});
+  burst(160,W/2,H/2);
+  startHearts();
+  observeAll();
+  setTimeout(()=>typeText($("heroSub"),KADO.subjudul,40),900);
+};
+
+$("blowBtn").onclick=function(){
+  $("cake").classList.add("out");
+  this.disabled=true;this.textContent="Semoga terkabul 💫";
+  burst(170,W/2,H*0.45);
+  setTimeout(()=>burst(90,W*0.25,H*0.4),350);
+  setTimeout(()=>burst(90,W*0.75,H*0.4),600);
+  $("wish").textContent=KADO.harapan;
+  $("wish").classList.add("in");
+};
+
+$("againBtn").onclick=()=>{
+  burst(160,W/2,H*0.5);
+  setTimeout(()=>burst(100,W*0.2,H*0.4),300);
+  setTimeout(()=>burst(100,W*0.8,H*0.4),500);
+};
+</script>
+</body>
+</html>
